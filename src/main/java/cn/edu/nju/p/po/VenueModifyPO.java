@@ -1,10 +1,13 @@
 package cn.edu.nju.p.po;
 
 /**
- * Created by pc on 2018/3/3.
+ * Created by pc on 2018/3/6.
  */
-public class VenuePO {
+public class VenueModifyPO {
 
+    private String title;
+    private String state;
+    private String createTime;
     private String venueId;
     private String venueName;
     private String address;
@@ -21,27 +24,28 @@ public class VenuePO {
     private String message2;
     private String message3;
 
-
-    public VenuePO(){
-
+    public String getTitle() {
+        return title;
     }
 
-    public VenuePO(String venueId,String venueName, String address, String totalSeats, String seatType, String seatA, String seatB, String seatC, String manager, String phoneNumber, String available,String description,String message1,String message2,String message3) {
-       this.venueId = venueId;
-        this.venueName = venueName;
-        this.address = address;
-        this.totalSeats = totalSeats;
-        this.seatType = seatType;
-        this.seatA = seatA;
-        this.seatB = seatB;
-        this.seatC = seatC;
-        this.manager = manager;
-        this.phoneNumber = phoneNumber;
-        this.available = available;
-        this.description = description;
-        this.message1=message1;
-        this.message2=message2;
-        this.message3=message3;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getVenueId() {
@@ -50,38 +54,6 @@ public class VenuePO {
 
     public void setVenueId(String venueId) {
         this.venueId = venueId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getMessage1() {
-        return message1;
-    }
-
-    public void setMessage1(String message1) {
-        this.message1 = message1;
-    }
-
-    public String getMessage2() {
-        return message2;
-    }
-
-    public void setMessage2(String message2) {
-        this.message2 = message2;
-    }
-
-    public String getMessage3() {
-        return message3;
-    }
-
-    public void setMessage3(String message3) {
-        this.message3 = message3;
     }
 
     public String getVenueName() {
@@ -164,10 +136,45 @@ public class VenuePO {
         this.available = available;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getMessage1() {
+        return message1;
+    }
+
+    public void setMessage1(String message1) {
+        this.message1 = message1;
+    }
+
+    public String getMessage2() {
+        return message2;
+    }
+
+    public void setMessage2(String message2) {
+        this.message2 = message2;
+    }
+
+    public String getMessage3() {
+        return message3;
+    }
+
+    public void setMessage3(String message3) {
+        this.message3 = message3;
+    }
+
     @Override
     public String toString() {
-        return "VenuePO{" +
-                "venueId='" + venueId + '\'' +
+        return "VenueModifyPO{" +
+                "title='" + title + '\'' +
+                ", state='" + state + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", venueId='" + venueId + '\'' +
                 ", venueName='" + venueName + '\'' +
                 ", address='" + address + '\'' +
                 ", totalSeats='" + totalSeats + '\'' +

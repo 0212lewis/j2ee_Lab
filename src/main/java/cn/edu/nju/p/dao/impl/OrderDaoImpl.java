@@ -1,7 +1,6 @@
 package cn.edu.nju.p.dao.impl;
 
 import cn.edu.nju.p.dao.OrderDao;
-import cn.edu.nju.p.po.AccountPO;
 import cn.edu.nju.p.po.OrderPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -50,7 +49,7 @@ public class OrderDaoImpl implements OrderDao{
 
     @Override
     public int getAllRefund(String username) {
-        String sql = "select * from orders where username="+'"'+username+'"'+"and state=" + '"'+"退订"+ '"';
+        String sql = "select * from orders where username="+'"'+username+'"'+"and state=" + '"'+"退款"+ '"';
         List<OrderPO> poList = jdbcTemplate.query(sql,getOrderMapper());
         int count = poList.size();
         return count;
@@ -59,11 +58,15 @@ public class OrderDaoImpl implements OrderDao{
     private RowMapper<OrderPO> getOrderMapper(){
         return (resultSet, i) -> {
             cn.edu.nju.p.po.OrderPO orderPO = new cn.edu.nju.p.po.OrderPO();
+            orderPO.setUsername(resultSet.getString("username"));
             orderPO.setOrderId(resultSet.getString("orderId"));
             orderPO.setCreateTime(resultSet.getString("createTime"));
             orderPO.setShowName(resultSet.getString("showName"));
             orderPO.setShowTime(resultSet.getString("showTime"));
-            orderPO.setNum(resultSet.getString("number"));
+            orderPO.setCode(resultSet.getString("code"));
+            orderPO.setSeatType(resultSet.getString("seatType"));
+            orderPO.setSeat(resultSet.getString("seat"));
+            orderPO.setNumber(resultSet.getString("number"));
             orderPO.setPrice(resultSet.getString("price"));
             orderPO.setTotal(resultSet.getString("total"));
             orderPO.setState(resultSet.getString("state"));

@@ -5,10 +5,12 @@ import cn.edu.nju.p.po.UserPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by pc on 2018/3/5.
  */
+@Repository
 public class UserDaoImpl implements UserDao {
 
     @Autowired
@@ -39,7 +41,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void modifyUserInfo(UserPO po) {
+    public int modifyUserInfo(UserPO po) {
+
+        String sql = "update user_info set username="+'"'+po.getUsername()+'"'+','+"sex="+'"'+po.getSex()+'"'+','+"phoneNumber="+'"'+po.getPhoneNumber()+'"'
+                +','+"email="+'"'+po.getEmail()+'"'+','+"address="+'"'+po.getAddress()+'"'+','+"unit="+'"'+po.getUnit()+'"'+','+"realName="+'"'+po.getRealName()+'"'
+                +','+"identity="+'"'+po.getIdentity()+'"'+','+"level="+'"'+po.getLevel()+'"'+','+"balance="+'"'+po.getBalance()+'"'+','+"integral="+'"'+po.getIntegral()+'"'
+                +','+"consumption="+'"'+po.getConsumption()+'"'+','+"description="+'"'+po.getDescription()+'"';
+
+        int success=jdbcTemplate.update(sql);
+        return success;
 
     }
 

@@ -35,4 +35,7 @@ public class AccountController {
     public BaseResult register(@RequestParam String username,@RequestParam String email){
         return new BaseResult<>(0,accountService.register(username,email));
     }
+
+
+
 }

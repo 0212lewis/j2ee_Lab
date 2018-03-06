@@ -2,6 +2,7 @@ package cn.edu.nju.p.dao.impl;
 
 import cn.edu.nju.p.dao.AccountDao;
 import cn.edu.nju.p.po.AccountPO;
+import cn.edu.nju.p.po.VenuePO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -32,7 +33,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public int register(String username, String email) {
+    public int register(String username, String email){
 
         String sql = "insert into account(username,email,authority) values"
                 + "("
@@ -40,7 +41,31 @@ public class AccountDaoImpl implements AccountDao {
                 + ")";
 
         int success = jdbcTemplate.update(sql);
-return success;
+        return success;
+    }
+
+
+    @Override
+    public int venueLogin(String venueId, String venueName) {
+        int res=0;
+        String sql = "select * from venue where venueId="+'"'+venueId+'"'+"and venueName="+'"'+venueName+'"';
+        List<VenuePO> venuePOS = jdbcTemplate.query(sql ,(resultSet, i) -> {
+            VenuePO venuePO = new VenuePO();
+            venuePO.setVenueId(resultSet.getString("venueId"));
+            venuePO.setVenueName(resultSet.getString("venueName"));
+            return venuePO;
+        });
+        if(venuePOS.size()<1){
+            res=0;
+        }else{
+            res=1;
+        }
+        return res;
+    }
+
+    @Override
+    public int venueRegister(String username, VenuePO venuePO) {
+        return 0;
     }
 
     @Override

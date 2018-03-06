@@ -15,8 +15,10 @@ public class ShowPlanPO {
     private String showPrice;
     private String description;
     private String state;
+    private String createTime;
+    private String openTime;
 
-    public ShowPlanPO(String showName, String showTime, String type, String venueName, String manager, String phoneNumber, String showPlace, String showPrice, String description, String state) {
+    public ShowPlanPO(String showName, String showTime, String type, String venueName, String manager, String phoneNumber, String showPlace, String showPrice, String description, String state,String createTime,String openTime) {
         this.showName = showName;
         this.showTime = showTime;
         this.type = type;
@@ -27,10 +29,28 @@ public class ShowPlanPO {
         this.showPrice = showPrice;
         this.description = description;
         this.state = state;
+        this.createTime=createTime;
+        this.openTime=openTime;
     }
 
     public ShowPlanPO(){
 
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
     }
 
     public String getShowName() {
@@ -126,6 +146,8 @@ public class ShowPlanPO {
                 ", showPrice='" + showPrice + '\'' +
                 ", description='" + description + '\'' +
                 ", state='" + state + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", openTime='" + openTime + '\'' +
                 '}';
     }
 }

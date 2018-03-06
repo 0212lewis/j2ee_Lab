@@ -1,6 +1,7 @@
 package cn.edu.nju.p.dao;
 
 import cn.edu.nju.p.po.AccountPO;
+import cn.edu.nju.p.po.VenuePO;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface AccountDao {
 
     int register(String username, String email);
 
+    int venueLogin(String venueId,String venueName);
+
+    int venueRegister(String username, VenuePO venuePO);
 
 
 

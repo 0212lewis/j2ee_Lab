@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -53,11 +54,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String register(String username, String email) {
         String result = "";
-        int success=accountDao.register(username,email);
-        if(success<1){
-            result = "该用户名和邮箱已存在！";
-        }else{
-            result = "注册成功！";
+        try {
+            int success=accountDao.register(username,email);
+            if(success<1){
+                result = "该用户名和邮箱已存在！";
+            }else{
+                result = "注册成功！";
+            }
+        }catch (DuplicateKeyException e){
+            result="您输入的用户名或邮箱已存在！";
         }
        return result;
     }

@@ -9,6 +9,6 @@ public interface UserDao {
 
     UserPO getUserInfo(String username);
 
-    void modifyUserInfo(UserPO po);
+    int modifyUserInfo(UserPO po);
 
 }

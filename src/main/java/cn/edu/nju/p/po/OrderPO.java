@@ -13,14 +13,13 @@ public class OrderPO {
     private String seatType;
     private String seat;
     private String price;
-    private String num;
     private String total;
     private String code;
     private String number;
     private String state;
 
 
-    public OrderPO(String username, String orderId, String createTime, String showTime, String seatType, String seat, String price, String num, String total, String code, String number) {
+    public OrderPO(String username, String orderId, String createTime, String showTime, String seatType, String seat, String price, String total, String code, String number,String state) {
         this.username = username;
         this.orderId = orderId;
         this.createTime = createTime;
@@ -28,10 +27,11 @@ public class OrderPO {
         this.seatType = seatType;
         this.seat = seat;
         this.price = price;
-        this.num = num;
+
         this.total = total;
         this.code = code;
         this.number = number;
+        this.state = state;
     }
 
     public OrderPO(){
@@ -110,14 +110,6 @@ public class OrderPO {
         this.price = price;
     }
 
-    public String getNum() {
-        return num;
-    }
-
-    public void setNum(String num) {
-        this.num = num;
-    }
-
     public String getTotal() {
         return total;
     }
@@ -148,14 +140,15 @@ public class OrderPO {
                 "username='" + username + '\'' +
                 ", orderId='" + orderId + '\'' +
                 ", createTime='" + createTime + '\'' +
+                ", showName='" + showName + '\'' +
                 ", showTime='" + showTime + '\'' +
                 ", seatType='" + seatType + '\'' +
                 ", seat='" + seat + '\'' +
                 ", price='" + price + '\'' +
-                ", num='" + num + '\'' +
                 ", total='" + total + '\'' +
                 ", code='" + code + '\'' +
                 ", number='" + number + '\'' +
+                ", state='" + state + '\'' +
                 '}';
     }
 }
