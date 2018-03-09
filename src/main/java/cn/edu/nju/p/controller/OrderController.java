@@ -34,5 +34,9 @@ public class OrderController {
         return new BaseResult<>(0,orderService.getAllRefund(username));
     }
 
+    @GetMapping("/deleteOrder")
+    public BaseResult deleteOrder(@RequestParam String username,@RequestParam String orderId){
+        return new BaseResult<>(0,orderService.deleteOrder(username,orderId));
+    }
 
 }

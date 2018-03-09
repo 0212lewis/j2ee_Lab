@@ -1,6 +1,7 @@
 package cn.edu.nju.p.controller;
 
 import cn.edu.nju.p.dto.BaseResult;
+import cn.edu.nju.p.po.ShowPlanPO;
 import cn.edu.nju.p.po.VenuePO;
 import cn.edu.nju.p.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class VenueController {
     }
 
     @GetMapping("/getPlans")
-    public BaseResult getPlans(@RequestParam String venueId){
-        return  new BaseResult<>(0,venueService.getPlans(venueId));
+    public BaseResult getPlans(@RequestParam String venueName){
+        return  new BaseResult<>(0,venueService.getPlans(venueName));
     }
     @GetMapping("/getPermittedPlans")
     public BaseResult getPermittedPlans(@RequestParam String venueName){
@@ -35,5 +36,11 @@ public class VenueController {
     public BaseResult getBackPlans(@RequestParam String venueName){
         return  new BaseResult<>(0,venueService.getBackPlans(venueName));
     }
+
+    @PostMapping("/releaseNewShow")
+    public BaseResult releaseNewShow(@RequestBody ShowPlanPO po){
+        return new BaseResult<>(0,venueService.releaseNewShow(po));
+    }
+
 
 }

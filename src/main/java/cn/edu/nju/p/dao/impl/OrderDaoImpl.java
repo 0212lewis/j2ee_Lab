@@ -55,6 +55,13 @@ public class OrderDaoImpl implements OrderDao{
         return count;
     }
 
+    @Override
+    public int deleteOrder(String username, String orderId) {
+        String sql = "delete from orders where username="+'"'+username+'"'+"and orderId="+'"'+orderId+'"';
+        int success=jdbcTemplate.update(sql);
+        return success;
+    }
+
     private RowMapper<OrderPO> getOrderMapper(){
         return (resultSet, i) -> {
             cn.edu.nju.p.po.OrderPO orderPO = new cn.edu.nju.p.po.OrderPO();

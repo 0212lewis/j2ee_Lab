@@ -2,6 +2,7 @@ package cn.edu.nju.p.service.impl;
 
 import cn.edu.nju.p.dao.UserDao;
 import cn.edu.nju.p.po.UserPO;
+import cn.edu.nju.p.po.VenueRegisterAccountPO;
 import cn.edu.nju.p.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,20 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<UserPO> getAllUsers() {
         return null;
+    }
+
+    @Override
+    public String registerNewVenue(VenueRegisterAccountPO po) {
+
+        int count = userDao.registerNewVenue(po);
+
+        String res="";
+        if (count<1){
+            res="提交失败！";
+        }else {
+            res="已提交申请";
+        }
+
+        return res;
     }
 }

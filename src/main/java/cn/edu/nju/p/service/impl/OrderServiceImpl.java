@@ -36,4 +36,20 @@ public class OrderServiceImpl implements OrderService{
     public int getAllRefund(String username) {
         return orderDao.getAllRefund(username);
     }
+
+    @Override
+    public String deleteOrder(String username, String orderId) {
+
+        String res = "";
+
+        int success=orderDao.deleteOrder(username,orderId);
+
+        if(success<1){
+            res="删除失败！";
+
+        }else{
+            res="删除成功！";
+        }
+        return res;
+    }
 }

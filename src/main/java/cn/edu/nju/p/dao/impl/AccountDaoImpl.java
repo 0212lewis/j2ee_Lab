@@ -33,14 +33,29 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public int register(String username, String email){
+    public int[] register(String username, String email){
 
         String sql = "insert into account(username,email,authority) values"
                 + "("
                 + '"' + username + '"' + "," + '"' + email + '"' + "," + '"' + "1" + '"'
                 + ")";
 
-        int success = jdbcTemplate.update(sql);
+
+        String sql1="insert into user_info(username,sex,phoneNumber,email,address,unit,realName,identity,level,balance,integral,consumption,description) values"
+                + "("
+                + '"' + username + '"' + "," + '"' + "" + '"' + "," + '"' + "" + '"'
+                + "," + '"' + email + '"' + "," + '"' + "" + '"'
+                + "," + '"' + "" + '"' + "," + '"' + "" + '"'
+                + "," + '"' + "" + '"' + "," + '"' + "" + '"'
+                + "," + '"' + "" + '"' + "," + '"' + "" + '"'
+                + "," + '"' + "" + '"' + "," + '"' + "" + '"'
+                + ")";
+
+        String sqls[] = new String[2];
+        sqls[0] = sql;
+        sqls[1] = sql1;
+
+        int[] success = jdbcTemplate.batchUpdate(sqls);
         return success;
     }
 
@@ -48,7 +63,7 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public int venueLogin(String venueId, String venueName) {
         int res=0;
-        String sql = "select * from venue where venueId="+'"'+venueId+'"'+"and venueName="+'"'+venueName+'"';
+        String sql = "select * from venues where venueId="+'"'+venueId+'"'+"and venueName="+'"'+venueName+'"';
         List<VenuePO> venuePOS = jdbcTemplate.query(sql ,(resultSet, i) -> {
             VenuePO venuePO = new VenuePO();
             venuePO.setVenueId(resultSet.getString("venueId"));

@@ -19,6 +19,5 @@ public interface ShowService {
 
     List<ShowPlanPO> getClassic();
 
-    String releaseNewShow(ShowPlanPO po);
 
 }

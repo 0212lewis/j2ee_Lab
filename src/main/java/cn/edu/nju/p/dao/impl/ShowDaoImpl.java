@@ -53,18 +53,7 @@ public class ShowDaoImpl implements ShowDao{
         return showPlanPOS;
     }
 
-    @Override
-    public int releaseNewShow(ShowPlanPO po) {
-        String sql = "insert into show_plan(showName,showTime,type,description,venueName,manager,phoneNumber,showPlace,showPrice,state,createTime,openTime) values "+
-                "(" + '"' + po.getShowName() + '"' + "," + '"' + po.getShowTime() + '"' + "," + '"' + po.getType() + '"' +
-                "," + '"' + po.getDescription() + '"' + "," + '"' + po.getVenueName()
-                + '"' + "," + '"' + po.getManager() + '"' + "," + '"' + po.getPhoneNumber() + '"' + "," + '"' +
-                po.getShowPlace() + '"' + "," + '"' + po.getShowPrice() + '"' + ","+ '"' + po.getState() + '"'+','+'"'+po.getCreateTime()+'"'+','+'"'+po.getOpenTime()
-                + '"' + ")";
 
-        int success = jdbcTemplate.update(sql);
-        return success;
-    }
 
     private RowMapper<ShowPlanPO> getShowMapper(){
 
@@ -77,7 +66,8 @@ public class ShowDaoImpl implements ShowDao{
             showPlanPO.setVenueName(resultSet.getString("venueName"));
             showPlanPO.setManager(resultSet.getString("manager"));
             showPlanPO.setPhoneNumber(resultSet.getString("phoneNumber"));
-            showPlanPO.setShowPlace(resultSet.getString("showPrice"));
+            showPlanPO.setShowPlace(resultSet.getString("showPlace"));
+            showPlanPO.setShowPrice(resultSet.getString("showPrice"));
             showPlanPO.setState(resultSet.getString("state"));
             showPlanPO.setCreateTime(resultSet.getString("createTime"));
             showPlanPO.setOpenTime(resultSet.getString("openTime"));

@@ -18,5 +18,7 @@ public interface OrderService {
 
     int getAllRefund(String username);
 
+    String deleteOrder(String username,String orderId);
+
 
 }

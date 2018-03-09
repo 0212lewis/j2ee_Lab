@@ -55,10 +55,12 @@ public class AccountServiceImpl implements AccountService {
     public String register(String username, String email) {
         String result = "";
         try {
-            int success=accountDao.register(username,email);
-            if(success<1){
+            int[] success=accountDao.register(username,email);
+            if(success[0]<1&&success[1]<1){
                 result = "该用户名和邮箱已存在！";
-            }else{
+            }else if(success[0]<1||success[1]<1){
+                result = "注册失败！";
+            } else{
                 result = "注册成功！";
             }
         }catch (DuplicateKeyException e){
@@ -78,6 +80,12 @@ public class AccountServiceImpl implements AccountService {
         return q;
     }
 
+    @Override
+    public int venueLogin(String venueId, String venueName) {
+
+        return accountDao.venueLogin(venueId,venueName);
+    }
+
     /**
     生成随机四位验证码
      */
@@ -89,7 +97,7 @@ public class AccountServiceImpl implements AccountService {
         String verificationCode="";
         for(int i=0;i<4;i++)
         {
-            int n=r.nextInt(62);
+            int n=r.nextInt(31);
 
             arr[i]=str.substring(n,n+1);
             verificationCode+=arr[i];

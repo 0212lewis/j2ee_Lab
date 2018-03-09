@@ -43,20 +43,5 @@ public class ShowServiceImpl implements ShowService{
         return showDao.getClassic();
     }
 
-    @Override
-    public String releaseNewShow(ShowPlanPO po) {
 
-        String result = "";
-        try {
-            int success = showDao.releaseNewShow(po);
-            if(success<1){
-                result = "发布失败！";
-            }else{
-                result = "发布成功！";
-            }
-        }catch (DuplicateKeyException e){
-            result = "发布的演出已存在！";
-        }
-        return result;
-    }
 }

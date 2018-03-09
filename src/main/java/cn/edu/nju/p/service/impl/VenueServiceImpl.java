@@ -5,6 +5,7 @@ import cn.edu.nju.p.po.ShowPlanPO;
 import cn.edu.nju.p.po.VenuePO;
 import cn.edu.nju.p.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,24 @@ public class VenueServiceImpl implements VenueService{
     }
 
     @Override
-    public List<ShowPlanPO> getPlans(String venueId) {
-        return venueDao.getPlans(venueId);
+    public List<ShowPlanPO> getPlans(String venueName) {
+        return venueDao.getPlans(venueName);
+    }
+
+    @Override
+    public String releaseNewShow(ShowPlanPO po) {
+
+        String result = "";
+        try {
+            int success = venueDao.releaseNewShow(po);
+            if(success<1){
+                result = "提交失败！";
+            }else{
+                result = "已提交申请！请等待管理员审核！";
+            }
+        }catch (DuplicateKeyException e){
+            result = "发布的演出已存在！";
+        }
+        return result;
     }
 }

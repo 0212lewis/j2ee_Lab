@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by pc on 2018/3/6.
  */
 @RestController
-@RequestMapping("/Show")
+@RequestMapping("/show")
 public class ShowController {
 
     @Autowired
@@ -38,10 +38,6 @@ public class ShowController {
         return new BaseResult<>(0,showService.getClassic());
     }
 
-    @PostMapping("/releaseNewShow")
-    public BaseResult releaseNewShow(@RequestBody ShowPlanPO po){
-        return new BaseResult<>(0,showService.releaseNewShow(po));
-    }
 
 
 }

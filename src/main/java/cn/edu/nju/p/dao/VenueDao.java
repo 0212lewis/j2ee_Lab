@@ -17,4 +17,6 @@ public interface VenueDao {
     int getPermittedPlans(String venueName);
 
     int getBackPlans(String venueName);
+
+    int releaseNewShow(ShowPlanPO po);
 }

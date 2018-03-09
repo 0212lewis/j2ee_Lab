@@ -20,7 +20,4 @@ public interface ShowDao {
     List<ShowPlanPO> getClassic();
 
 
-    int releaseNewShow(ShowPlanPO po);
-
-
 }

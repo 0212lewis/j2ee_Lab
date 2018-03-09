@@ -11,4 +11,6 @@ public interface AccountService {
 
     String register(String username,String email);
 
+    int venueLogin(String venueId,String venueName);
+
 }

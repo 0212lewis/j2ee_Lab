@@ -2,6 +2,7 @@ package cn.edu.nju.p.dao.impl;
 
 import cn.edu.nju.p.dao.UserDao;
 import cn.edu.nju.p.po.UserPO;
+import cn.edu.nju.p.po.VenueRegisterAccountPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -51,6 +52,22 @@ public class UserDaoImpl implements UserDao {
         int success=jdbcTemplate.update(sql);
         return success;
 
+    }
+
+    @Override
+    public int registerNewVenue(VenueRegisterAccountPO po) {
+        String sql = "Insert into venue_account(venueName,address,manager,phoneNumber,seatA,seatB,seatC,total,message1,message2,message3,description,username,state) values " +
+                "(" + '"' + po.getVenueName() + '"' + "," + '"' + po.getAddress() + '"' + "," + '"' + po.getManager() + '"' +
+                "," + '"' + po.getPhoneNumber() + '"' + "," + '"' + po.getSeatA()
+                + '"' + "," + '"' + po.getSeatB() + '"' + "," + '"' + po.getSeatC() + '"' + "," + '"' +
+                po.getTotal() + '"' + "," + '"' + po.getMessage1()
+                + '"' + "," + '"'+po.getMessage2()+'"'+','+'"'+po.getMessage3()+'"'+ ','+'"'+po.getDescription()+'"'+','+'"'+po.getUsername()+'"'+','+'"'+po.getState()+'"'+
+                ")";
+
+        System.out.println(sql);
+        int success=jdbcTemplate.update(sql);
+
+        return success;
     }
 
     private RowMapper<UserPO> getUserMapper(){

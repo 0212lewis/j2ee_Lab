@@ -1,6 +1,7 @@
 package cn.edu.nju.p.service;
 
 import cn.edu.nju.p.po.UserPO;
+import cn.edu.nju.p.po.VenueRegisterAccountPO;
 import org.apache.catalina.User;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface UserService {
     String modifyUserInfo(UserPO po);
 
     List<UserPO> getAllUsers();
+
+    String registerNewVenue(VenueRegisterAccountPO po);
 
 
 

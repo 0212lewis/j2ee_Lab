@@ -18,4 +18,5 @@ public interface VenueService {
 
     int getBackPlans(String venueName);
 
+    String releaseNewShow(ShowPlanPO po);
 }

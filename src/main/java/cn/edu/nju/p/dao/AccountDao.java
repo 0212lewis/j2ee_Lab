@@ -14,7 +14,7 @@ public interface AccountDao {
 
     List<AccountPO> checkAccount(String username,String email);
 
-    int register(String username, String email);
+    int[] register(String username, String email);
 
     int venueLogin(String venueId,String venueName);
 

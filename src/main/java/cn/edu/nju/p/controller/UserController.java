@@ -2,6 +2,7 @@ package cn.edu.nju.p.controller;
 
 import cn.edu.nju.p.dto.BaseResult;
 import cn.edu.nju.p.po.UserPO;
+import cn.edu.nju.p.po.VenueRegisterAccountPO;
 import cn.edu.nju.p.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,8 @@ public class UserController {
 
     }
 
-
-
-
+    @PostMapping("/registerNewVenue")
+    public  BaseResult registerNewVenue(@RequestBody VenueRegisterAccountPO po){
+        return new BaseResult<>(0,userService.registerNewVenue(po));
+    }
 }

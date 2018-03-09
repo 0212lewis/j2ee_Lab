@@ -18,5 +18,5 @@ public interface OrderDao {
 
     int getAllRefund(String username);
 
-
+    int deleteOrder(String username,String orderId);
  }
