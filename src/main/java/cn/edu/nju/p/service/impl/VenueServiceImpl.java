@@ -2,6 +2,7 @@ package cn.edu.nju.p.service.impl;
 
 import cn.edu.nju.p.dao.VenueDao;
 import cn.edu.nju.p.po.ShowPlanPO;
+import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenuePO;
 import cn.edu.nju.p.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class VenueServiceImpl implements VenueService{
     private VenueDao venueDao;
 
     @Override
-    public String modifyVenueInfo(VenuePO po) {
+    public String modifyVenueInfo(VenueModifyPO po) {
         String res = "";
         int success = venueDao.modifyVenueInfo(po);
         if (success<1){
@@ -51,6 +52,35 @@ public class VenueServiceImpl implements VenueService{
     public String releaseNewShow(ShowPlanPO po) {
 
         String result = "";
+
+        int seatACount = Integer.parseInt(po.getSeatA());
+        int seatBCount = Integer.parseInt(po.getSeatB());
+        int seatCCount = Integer.parseInt(po.getSeatC());
+
+        String seatA = "";
+        String seatB = "";
+        String seatC = "";
+
+        for(int i=1;i<seatACount;i++){
+            seatA = seatA+String.valueOf(i)+";";
+        }
+
+        for(int i=1;i<seatBCount;i++){
+            seatB = seatB+String.valueOf(i)+";";
+        }
+        for(int i=1;i<seatCCount;i++){
+            seatC = seatC+String.valueOf(i)+";";
+        }
+
+        seatA = seatA+String.valueOf(seatACount);
+        seatB = seatB+String.valueOf(seatBCount);
+        seatC = seatC+String.valueOf(seatCCount);
+
+
+        po.setSeatA(seatA);
+        po.setSeatB(seatB);
+        po.setSeatC(seatC);
+
         try {
             int success = venueDao.releaseNewShow(po);
             if(success<1){
@@ -62,5 +92,21 @@ public class VenueServiceImpl implements VenueService{
             result = "发布的演出已存在！";
         }
         return result;
+    }
+
+    @Override
+    public String deletePlan(String showName) {
+
+        String res = "";
+        int count = venueDao.deletePlan(showName);
+        if(count<1){
+            res="删除失败！";
+
+        }else{
+            res="删除成功！";
+
+        }
+
+        return res;
     }
 }

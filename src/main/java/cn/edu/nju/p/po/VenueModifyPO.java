@@ -8,17 +8,15 @@ public class VenueModifyPO {
     private String title;
     private String state;
     private String createTime;
-    private String venueId;
     private String venueName;
     private String address;
     private String totalSeats;
-    private String seatType;
+//    private String seatType;
     private String seatA;
     private String seatB;
     private String seatC;
     private String manager;
     private String phoneNumber;
-    private String available;
     private String description;
     private String message1;
     private String message2;
@@ -47,14 +45,14 @@ public class VenueModifyPO {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
-
-    public String getVenueId() {
-        return venueId;
-    }
-
-    public void setVenueId(String venueId) {
-        this.venueId = venueId;
-    }
+//
+//    public String getVenueId() {
+//        return venueId;
+//    }
+//
+//    public void setVenueId(String venueId) {
+//        this.venueId = venueId;
+//    }
 
     public String getVenueName() {
         return venueName;
@@ -80,13 +78,13 @@ public class VenueModifyPO {
         this.totalSeats = totalSeats;
     }
 
-    public String getSeatType() {
-        return seatType;
-    }
-
-    public void setSeatType(String seatType) {
-        this.seatType = seatType;
-    }
+//    public String getSeatType() {
+//        return seatType;
+//    }
+//
+//    public void setSeatType(String seatType) {
+//        this.seatType = seatType;
+//    }
 
     public String getSeatA() {
         return seatA;
@@ -128,13 +126,13 @@ public class VenueModifyPO {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAvailable() {
-        return available;
-    }
+//    public String getAvailable() {
+//        return available;
+//    }
 
-    public void setAvailable(String available) {
-        this.available = available;
-    }
+//    public void setAvailable(String available) {
+//        this.available = available;
+//    }
 
     public String getDescription() {
         return description;
@@ -174,17 +172,17 @@ public class VenueModifyPO {
                 "title='" + title + '\'' +
                 ", state='" + state + '\'' +
                 ", createTime='" + createTime + '\'' +
-                ", venueId='" + venueId + '\'' +
+//                ", venueId='" + venueId + '\'' +
                 ", venueName='" + venueName + '\'' +
                 ", address='" + address + '\'' +
                 ", totalSeats='" + totalSeats + '\'' +
-                ", seatType='" + seatType + '\'' +
+//                ", seatType='" + seatType + '\'' +
                 ", seatA='" + seatA + '\'' +
                 ", seatB='" + seatB + '\'' +
                 ", seatC='" + seatC + '\'' +
                 ", manager='" + manager + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", available='" + available + '\'' +
+//                ", available='" + available + '\'' +
                 ", description='" + description + '\'' +
                 ", message1='" + message1 + '\'' +
                 ", message2='" + message2 + '\'' +

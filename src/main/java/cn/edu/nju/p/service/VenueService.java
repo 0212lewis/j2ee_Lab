@@ -1,6 +1,7 @@
 package cn.edu.nju.p.service;
 
 import cn.edu.nju.p.po.ShowPlanPO;
+import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenuePO;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface VenueService {
 
-    String modifyVenueInfo(VenuePO po);
+    String modifyVenueInfo(VenueModifyPO po);
 
     List<ShowPlanPO> getPlans(String venueName);
 
@@ -19,4 +20,6 @@ public interface VenueService {
     int getBackPlans(String venueName);
 
     String releaseNewShow(ShowPlanPO po);
+
+    String deletePlan(String showName);
 }

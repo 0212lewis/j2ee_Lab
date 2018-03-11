@@ -1,6 +1,7 @@
 package cn.edu.nju.p.dao;
 
 import cn.edu.nju.p.po.ShowPlanPO;
+import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenuePO;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface VenueDao {
 
-    int modifyVenueInfo(VenuePO po);
+    int modifyVenueInfo(VenueModifyPO po);
 
     List<ShowPlanPO> getPlans(String venueName);
 
@@ -19,4 +20,6 @@ public interface VenueDao {
     int getBackPlans(String venueName);
 
     int releaseNewShow(ShowPlanPO po);
+
+    int deletePlan(String showName);
 }

@@ -2,6 +2,7 @@ package cn.edu.nju.p.controller;
 
 import cn.edu.nju.p.dto.BaseResult;
 import cn.edu.nju.p.po.ShowPlanPO;
+import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenuePO;
 import cn.edu.nju.p.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class VenueController {
     private VenueService venueService;
 
     @PostMapping("/modifyVenueInfo")
-    public BaseResult modifyVenueInfo(@RequestBody VenuePO po){
+    public BaseResult modifyVenueInfo(@RequestBody VenueModifyPO po){
         return new BaseResult<>(0,venueService.modifyVenueInfo(po));
     }
 
@@ -42,5 +43,9 @@ public class VenueController {
         return new BaseResult<>(0,venueService.releaseNewShow(po));
     }
 
+    @GetMapping("/deletePlan")
+    public BaseResult deletePlan(@RequestParam String showName){
+        return new BaseResult<>(0,venueService.deletePlan(showName));
+    }
 
 }

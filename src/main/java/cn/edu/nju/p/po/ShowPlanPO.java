@@ -17,8 +17,11 @@ public class ShowPlanPO {
     private String state;
     private String createTime;
     private String openTime;
+    private String seatA;
+    private String seatB;
+    private String seatC;
 
-    public ShowPlanPO(String showName, String showTime, String type, String venueName, String manager, String phoneNumber, String showPlace, String showPrice, String description, String state,String createTime,String openTime) {
+    public ShowPlanPO(String showName, String showTime, String type, String venueName, String manager, String phoneNumber, String showPlace, String showPrice, String description, String state, String createTime, String openTime, String seatA, String seatB, String seatC) {
         this.showName = showName;
         this.showTime = showTime;
         this.type = type;
@@ -29,12 +32,39 @@ public class ShowPlanPO {
         this.showPrice = showPrice;
         this.description = description;
         this.state = state;
-        this.createTime=createTime;
-        this.openTime=openTime;
+        this.createTime = createTime;
+        this.openTime = openTime;
+        this.seatA = seatA;
+        this.seatB = seatB;
+        this.seatC = seatC;
     }
 
     public ShowPlanPO(){
 
+    }
+
+    public String getSeatA() {
+        return seatA;
+    }
+
+    public void setSeatA(String seatA) {
+        this.seatA = seatA;
+    }
+
+    public String getSeatB() {
+        return seatB;
+    }
+
+    public void setSeatB(String seatB) {
+        this.seatB = seatB;
+    }
+
+    public String getSeatC() {
+        return seatC;
+    }
+
+    public void setSeatC(String seatC) {
+        this.seatC = seatC;
     }
 
     public String getCreateTime() {
@@ -148,6 +178,9 @@ public class ShowPlanPO {
                 ", state='" + state + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", openTime='" + openTime + '\'' +
+                ", seatA='" + seatA + '\'' +
+                ", seatB='" + seatB + '\'' +
+                ", seatC='" + seatC + '\'' +
                 '}';
     }
 }
