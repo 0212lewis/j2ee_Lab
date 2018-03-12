@@ -19,6 +19,8 @@ public interface UserService {
 
     String registerNewVenue(VenueRegisterAccountPO po);
 
+    String adjustLevel(String username);
+
 
 
 }

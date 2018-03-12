@@ -1,6 +1,7 @@
 package cn.edu.nju.p.service;
 
 import cn.edu.nju.p.po.OrderPO;
+import cn.edu.nju.p.po.ShowPlanPO;
 
 import java.util.List;
 
@@ -19,6 +20,12 @@ public interface OrderService {
     int getAllRefund(String username);
 
     String deleteOrder(String username,String orderId);
+
+    ShowPlanPO getShow(String showId);
+
+    double getDiscount(String username);
+
+    String buyTickets(OrderPO orderPO);
 
 
 }

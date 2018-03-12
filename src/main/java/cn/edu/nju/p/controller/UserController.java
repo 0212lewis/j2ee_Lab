@@ -33,4 +33,11 @@ public class UserController {
     public  BaseResult registerNewVenue(@RequestBody VenueRegisterAccountPO po){
         return new BaseResult<>(0,userService.registerNewVenue(po));
     }
+
+    @GetMapping("/adjustLevel")
+    public BaseResult adjustLevel(@RequestParam String username){
+        return new BaseResult<>(0,userService.adjustLevel(username));
+    }
+
+
 }

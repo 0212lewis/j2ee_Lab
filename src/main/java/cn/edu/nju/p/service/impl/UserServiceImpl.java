@@ -59,4 +59,16 @@ public class UserServiceImpl implements UserService{
 
         return res;
     }
+
+    @Override
+    public String adjustLevel(String username) {
+        int count=userDao.adjustLevel(username);
+        String res="";
+        if(count<1){
+            res="等级更新失败！";
+        }else{
+            res="等级更新成功！";
+        }
+        return res;
+    }
 }

@@ -17,9 +17,10 @@ public class OrderPO {
     private String code;
     private String number;
     private String state;
+    private String venueName;
 
 
-    public OrderPO(String username, String orderId, String createTime, String showTime, String seatType, String seat, String price, String total, String code, String number,String state) {
+    public OrderPO(String username, String orderId, String createTime, String showTime, String seatType, String seat, String price, String total, String code, String number,String state,String venueName) {
         this.username = username;
         this.orderId = orderId;
         this.createTime = createTime;
@@ -32,10 +33,19 @@ public class OrderPO {
         this.code = code;
         this.number = number;
         this.state = state;
+        this.venueName = venueName;
     }
 
     public OrderPO(){
 
+    }
+
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
     }
 
     public String getState() {

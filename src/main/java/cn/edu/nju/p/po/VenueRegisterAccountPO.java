@@ -18,9 +18,10 @@ public class VenueRegisterAccountPO {
     private String message1;
     private String message2;
     private String message3;
-    private String createTime;
+    private String venueId;
 
-    public VenueRegisterAccountPO(String username, String state, String venueName, String address, String total, String seatA, String seatB, String seatC, String manager, String phoneNumber, String description, String message1, String message2, String message3) {
+
+    public VenueRegisterAccountPO(String username, String state, String venueName, String address, String total, String seatA, String seatB, String seatC, String manager, String phoneNumber, String description, String message1, String message2, String message3,String venueId) {
         this.username = username;
         this.state = state;
         this.venueName = venueName;
@@ -35,19 +36,21 @@ public class VenueRegisterAccountPO {
         this.message1 = message1;
         this.message2 = message2;
         this.message3 = message3;
+        this.venueId = venueId;
     }
 
     public VenueRegisterAccountPO(){
 
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getVenueId() {
+        return venueId;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setVenueId(String venueId) {
+        this.venueId = venueId;
     }
+
 
     public String getUsername() {
         return username;
@@ -178,7 +181,7 @@ public class VenueRegisterAccountPO {
                 ", message1='" + message1 + '\'' +
                 ", message2='" + message2 + '\'' +
                 ", message3='" + message3 + '\'' +
-                ", createTime='" + createTime + '\'' +
+//                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }

@@ -4,6 +4,7 @@ import cn.edu.nju.p.dao.VenueDao;
 import cn.edu.nju.p.po.ShowPlanPO;
 import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenuePO;
+import cn.edu.nju.p.po.VenueRegisterAccountPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -87,6 +88,16 @@ public class VenueDaoImpl implements VenueDao{
        return success;
     }
 
+    @Override
+    public List<VenueRegisterAccountPO> getVenues(String username) {
+
+        String sql = "select * from venue_account where username="+'"'+username+'"'+"and state="+'"'+"批准"+'"';
+
+        List<VenueRegisterAccountPO> venueRegisterAccountPOS = jdbcTemplate.query(sql,getRegisterVenueMapper());
+
+        return venueRegisterAccountPOS;
+     }
+
     private RowMapper<ShowPlanPO> getShowMapper(){
 
         return (resultSet,i)->{
@@ -110,6 +121,30 @@ public class VenueDaoImpl implements VenueDao{
             return showPlanPO;
         };
 
+    }
+
+    private RowMapper<VenueRegisterAccountPO> getRegisterVenueMapper(){
+        return (resultSet,i)->{
+            VenueRegisterAccountPO venueRegisterAccountPO = new VenueRegisterAccountPO();
+            venueRegisterAccountPO.setUsername(resultSet.getString("username"));
+            venueRegisterAccountPO.setAddress(resultSet.getString("address"));
+            venueRegisterAccountPO.setVenueName(resultSet.getString("venueName"));
+            venueRegisterAccountPO.setPhoneNumber(resultSet.getString("phoneNumber"));
+            venueRegisterAccountPO.setDescription(resultSet.getString("description"));
+            venueRegisterAccountPO.setState(resultSet.getString("state"));
+            venueRegisterAccountPO.setTotal(resultSet.getString("total"));
+            venueRegisterAccountPO.setSeatA(resultSet.getString("seatA"));
+            venueRegisterAccountPO.setSeatB(resultSet.getString("seatB"));
+            venueRegisterAccountPO.setSeatC(resultSet.getString("seatC"));
+            venueRegisterAccountPO.setMessage1(resultSet.getString("message1"));
+            venueRegisterAccountPO.setMessage2(resultSet.getString("message2"));
+            venueRegisterAccountPO.setMessage3(resultSet.getString("message3"));
+            venueRegisterAccountPO.setManager(resultSet.getString("manager"));
+            venueRegisterAccountPO.setVenueId(resultSet.getString("venueId"));
+
+            return venueRegisterAccountPO;
+
+        };
     }
 
 }

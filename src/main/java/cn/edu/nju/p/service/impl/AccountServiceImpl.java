@@ -91,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
      */
     public String generateVerification(){
 
-        String str="abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789";
+        String str="abcdefghigklmnopqrstuvwxyz0123456789";
         Random r=new Random();
         String arr[]=new String [4];
         String verificationCode="";

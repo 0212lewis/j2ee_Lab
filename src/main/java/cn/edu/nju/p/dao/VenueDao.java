@@ -3,6 +3,7 @@ package cn.edu.nju.p.dao;
 import cn.edu.nju.p.po.ShowPlanPO;
 import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenuePO;
+import cn.edu.nju.p.po.VenueRegisterAccountPO;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface VenueDao {
     int releaseNewShow(ShowPlanPO po);
 
     int deletePlan(String showName);
+
+    List<VenueRegisterAccountPO> getVenues(String username);
 }

@@ -48,4 +48,8 @@ public class VenueController {
         return new BaseResult<>(0,venueService.deletePlan(showName));
     }
 
+    @GetMapping("/getVenues")
+    public BaseResult getVenues(@RequestParam String username){
+        return new BaseResult<>(0,venueService.getVenues(username));
+    }
 }

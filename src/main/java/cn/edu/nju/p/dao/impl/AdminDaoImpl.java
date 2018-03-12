@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by pc on 2018/3/10.
@@ -52,6 +53,7 @@ public class AdminDaoImpl implements AdminDao{
 
         return (resultSet,i)->{
             ShowPlanPO showPlanPO = new ShowPlanPO();
+            showPlanPO.setShowId(resultSet.getString("showId"));
             showPlanPO.setShowName(resultSet.getString("showName"));
             showPlanPO.setShowTime(resultSet.getString("showTime"));
             showPlanPO.setType(resultSet.getString("type"));
@@ -168,12 +170,96 @@ public class AdminDaoImpl implements AdminDao{
         return count;
     }
 
+
+    @Override
+    public int permitVenueModify(String venueName, String title) {
+        String sql="update venue_modify set state="+'"'+"批准"+'"'+"where venueName="+'"'+venueName+'"'+"and title="+'"'+title+'"';
+        int success=jdbcTemplate.update(sql);
+        return success;
+    }
+
+    @Override
+    public int[] permitRegister(String venueName, String username) {
+        String sql="update venue_account set state="+'"'+"批准"+'"'+"where venueName="+'"'+venueName+'"'+"and username="+'"'+username+'"';
+
+        String temp = "select * from venue_account where venueName="+'"'+venueName+'"'+"and username="+'"'+username+'"';
+
+        VenueRegisterAccountPO venueRegisterAccountPO = jdbcTemplate.queryForObject(temp, (resultSet, i) -> {
+
+            VenueRegisterAccountPO venueRegisterAccountPO1 = new VenueRegisterAccountPO();
+            venueRegisterAccountPO1.setVenueId(resultSet.getString("venueId"));
+            venueRegisterAccountPO1.setUsername(resultSet.getString("username"));
+            venueRegisterAccountPO1.setAddress(resultSet.getString("address"));
+            venueRegisterAccountPO1.setVenueName(resultSet.getString("venueName"));
+            venueRegisterAccountPO1.setPhoneNumber(resultSet.getString("phoneNumber"));
+            venueRegisterAccountPO1.setDescription(resultSet.getString("description"));
+            venueRegisterAccountPO1.setState(resultSet.getString("state"));
+            venueRegisterAccountPO1.setTotal(resultSet.getString("total"));
+            venueRegisterAccountPO1.setSeatA(resultSet.getString("seatA"));
+            venueRegisterAccountPO1.setSeatB(resultSet.getString("seatB"));
+            venueRegisterAccountPO1.setSeatC(resultSet.getString("seatC"));
+            venueRegisterAccountPO1.setMessage1(resultSet.getString("message1"));
+            venueRegisterAccountPO1.setMessage2(resultSet.getString("message2"));
+            venueRegisterAccountPO1.setMessage3(resultSet.getString("message3"));
+            venueRegisterAccountPO1.setManager(resultSet.getString("manager"));
+
+            return venueRegisterAccountPO1;
+        });
+
+
+        String venueId=getVenueId();
+
+        String sql1 = "insert into venues(venueName,address,total,seatType,seatA,seatB,seatC,manager,phoneNumber,available,message1,message2,message3,description,venueId) values "+'('
+                +'"'+ venueRegisterAccountPO.getVenueName()+'"'+','+'"'+venueRegisterAccountPO.getAddress()+'"'+','+'"'+venueRegisterAccountPO.getTotal()+'"'
+                +','+'"'+"A/B/C"+'"'+','+'"'+venueRegisterAccountPO.getSeatA()+'"'+','+'"'+venueRegisterAccountPO.getSeatB()+'"'+','+'"'+venueRegisterAccountPO.getSeatC()+'"'
+                +','+'"'+venueRegisterAccountPO.getManager()+'"'+','+'"'+venueRegisterAccountPO.getPhoneNumber()+'"'+','+'"'+"1"+'"'
+                +','+'"'+venueRegisterAccountPO.getMessage1()+'"'+','+'"'+venueRegisterAccountPO.getMessage2()+'"'+','+'"'+venueRegisterAccountPO.getMessage3()+'"'+','+'"'+venueRegisterAccountPO.getDescription()+'"'
+                +','+'"'+venueId+'"'
+                +')';
+
+
+        String insertVenueId="update venue_account set venueId="+'"'+venueId+'"';
+        int q=jdbcTemplate.update(insertVenueId);
+
+        int[] success=jdbcTemplate.batchUpdate(sql,sql1);
+        return success;
+    }
+
+    @Override
+    public int permitPlans(String showName, String venueName) {
+        String sql="update show_plan set state="+'"'+"批准"+'"'+"where showName="+'"'+showName+'"'+"and venueName="+'"'+venueName+'"';
+        int success=jdbcTemplate.update(sql);
+        System.out.println(success+"------------------------------------------------------");
+        return success;
+    }
+
+    @Override
+    public int backVenueModify(String venueName, String title) {
+        String sql="update venue_modify set state="+'"'+"驳回"+'"'+ "where venueName="+'"'+venueName+'"'+"and title="+'"'+title+'"';
+        int success=jdbcTemplate.update(sql);
+        return success;
+    }
+
+    @Override
+    public int backRegister(String venueName, String username) {
+        String sql="delete from venue_account set state="+'"'+"驳回"+'"'+"where venueName="+'"'+venueName+'"'+"and username="+'"'+username+'"';
+        int success=jdbcTemplate.update(sql);
+        return success;
+    }
+
+    @Override
+    public int backPlans(String showName, String venueName) {
+        String sql="update show_plan set state="+'"'+"驳回"+'"'+"where showName="+'"'+showName+'"'+"and venueName="+'"'+venueName+'"';
+        int success=jdbcTemplate.update(sql);
+
+        return success;
+    }
+
     private RowMapper<VenueModifyPO> getVenueModifyMapper(){
 
         return (resultSet,i)->{
             VenueModifyPO venueModifyPO = new VenueModifyPO();
             venueModifyPO.setAddress(resultSet.getString("address"));
-            venueModifyPO.setCreateTime(resultSet.getString("createTime"));
             venueModifyPO.setDescription(resultSet.getString("description"));
             venueModifyPO.setManager(resultSet.getString("manager"));
             venueModifyPO.setPhoneNumber(resultSet.getString("phoneNumber"));
@@ -196,11 +282,9 @@ public class AdminDaoImpl implements AdminDao{
     private RowMapper<VenueRegisterAccountPO> getRegisterVenueMapper(){
         return (resultSet,i)->{
             VenueRegisterAccountPO venueRegisterAccountPO = new VenueRegisterAccountPO();
-
             venueRegisterAccountPO.setUsername(resultSet.getString("username"));
             venueRegisterAccountPO.setAddress(resultSet.getString("address"));
             venueRegisterAccountPO.setVenueName(resultSet.getString("venueName"));
-            venueRegisterAccountPO.setCreateTime(resultSet.getString("createTime"));
             venueRegisterAccountPO.setPhoneNumber(resultSet.getString("phoneNumber"));
             venueRegisterAccountPO.setDescription(resultSet.getString("description"));
             venueRegisterAccountPO.setState(resultSet.getString("state"));
@@ -212,9 +296,28 @@ public class AdminDaoImpl implements AdminDao{
             venueRegisterAccountPO.setMessage2(resultSet.getString("message2"));
             venueRegisterAccountPO.setMessage3(resultSet.getString("message3"));
             venueRegisterAccountPO.setManager(resultSet.getString("manager"));
+            venueRegisterAccountPO.setVenueId(resultSet.getString("venueId"));
 
             return venueRegisterAccountPO;
 
         };
+    }
+
+
+
+    private String getVenueId(){
+        String str="0123456789";
+        Random r=new Random();
+        String arr[]=new String [7];
+        String verificationCode="";
+        for(int i=0;i<7;i++)
+        {
+            int n=r.nextInt(6);
+
+            arr[i]=str.substring(n,n+1);
+            verificationCode+=arr[i];
+
+        }
+        return verificationCode;
     }
 }

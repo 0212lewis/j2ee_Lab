@@ -4,12 +4,14 @@ import cn.edu.nju.p.dao.VenueDao;
 import cn.edu.nju.p.po.ShowPlanPO;
 import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenuePO;
+import cn.edu.nju.p.po.VenueRegisterAccountPO;
 import cn.edu.nju.p.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by pc on 2018/3/6.
@@ -50,6 +52,7 @@ public class VenueServiceImpl implements VenueService{
 
     @Override
     public String releaseNewShow(ShowPlanPO po) {
+        po.setShowId(getShowId());
 
         String result = "";
 
@@ -108,5 +111,26 @@ public class VenueServiceImpl implements VenueService{
         }
 
         return res;
+    }
+
+    @Override
+    public List<VenueRegisterAccountPO> getVenues(String username) {
+        return venueDao.getVenues(username);
+    }
+
+    private String getShowId(){
+        String str="0123456789";
+        Random r=new Random();
+        String arr[]=new String [7];
+        String showId="";
+        for(int i=0;i<7;i++)
+        {
+            int n=r.nextInt(6);
+
+            arr[i]=str.substring(n,n+1);
+            showId+=arr[i];
+
+        }
+        return showId;
     }
 }

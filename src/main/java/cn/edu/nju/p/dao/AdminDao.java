@@ -42,6 +42,19 @@ public interface AdminDao {
 
     int getAuditRegister();
 
+    int permitVenueModify(String venueName,String title);
+
+    int[] permitRegister(String venueName,String username);
+
+    int permitPlans(String showName, String venueName);
+
+    int backVenueModify(String venueName,String title);
+
+    int backRegister(String venueName,String username);
+
+    int backPlans(String showName,String venueName);
+
+
 
 
 

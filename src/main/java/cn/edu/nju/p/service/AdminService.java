@@ -43,4 +43,18 @@ public interface AdminService {
     int getAuditVenueModify();
 
     int getAuditRegister();
+
+    String permitVenueModify(String venueName,String title);
+
+    String permitRegister(String venueName,String username);
+
+    String permitPlans(String showName, String venueName);
+
+    String backVenueModify(String venueName,String title);
+
+    String backRegister(String venueName,String username);
+
+    String backPlans(String showName,String venueName);
+
+
 }

@@ -1,6 +1,7 @@
 package cn.edu.nju.p.dao;
 
 import cn.edu.nju.p.po.OrderPO;
+import cn.edu.nju.p.po.ShowPlanPO;
 
 import java.util.List;
 
@@ -19,4 +20,10 @@ public interface OrderDao {
     int getAllRefund(String username);
 
     int deleteOrder(String username,String orderId);
+
+    ShowPlanPO getShow(String showId);
+
+    String getLevel(String username);
+
+    int[] buyTickets(OrderPO orderPO);
  }

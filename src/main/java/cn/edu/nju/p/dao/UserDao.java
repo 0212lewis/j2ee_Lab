@@ -1,5 +1,6 @@
 package cn.edu.nju.p.dao;
 
+import cn.edu.nju.p.po.OrderPO;
 import cn.edu.nju.p.po.UserPO;
 import cn.edu.nju.p.po.VenueRegisterAccountPO;
 
@@ -13,5 +14,9 @@ public interface UserDao {
     int modifyUserInfo(UserPO po);
 
     int registerNewVenue(VenueRegisterAccountPO po);
+
+    int adjustLevel(String username);
+
+
 
 }

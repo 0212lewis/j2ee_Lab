@@ -5,6 +5,7 @@ package cn.edu.nju.p.po;
  */
 public class ShowPlanPO {
 
+    private String showId;
     private String showName;
     private String showTime;
     private String type;
@@ -21,7 +22,8 @@ public class ShowPlanPO {
     private String seatB;
     private String seatC;
 
-    public ShowPlanPO(String showName, String showTime, String type, String venueName, String manager, String phoneNumber, String showPlace, String showPrice, String description, String state, String createTime, String openTime, String seatA, String seatB, String seatC) {
+    public ShowPlanPO(String showId,String showName, String showTime, String type, String venueName, String manager, String phoneNumber, String showPlace, String showPrice, String description, String state, String createTime, String openTime, String seatA, String seatB, String seatC) {
+        this.showId=showId;
         this.showName = showName;
         this.showTime = showTime;
         this.type = type;
@@ -41,6 +43,14 @@ public class ShowPlanPO {
 
     public ShowPlanPO(){
 
+    }
+
+    public String getShowId() {
+        return showId;
+    }
+
+    public void setShowId(String showId) {
+        this.showId = showId;
     }
 
     public String getSeatA() {
@@ -166,7 +176,8 @@ public class ShowPlanPO {
     @Override
     public String toString() {
         return "ShowPlanPO{" +
-                "showName='" + showName + '\'' +
+                "showId='" + showId + '\'' +
+                ", showName='" + showName + '\'' +
                 ", showTime='" + showTime + '\'' +
                 ", type='" + type + '\'' +
                 ", venueName='" + venueName + '\'' +

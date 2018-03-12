@@ -3,9 +3,7 @@ package cn.edu.nju.p.controller;
 import cn.edu.nju.p.dto.BaseResult;
 import cn.edu.nju.p.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by pc on 2018/3/10.
@@ -89,4 +87,35 @@ public class AdminController {
     public BaseResult getAuditRegister(){
         return new BaseResult<>(0,adminService.getAuditRegister());
     }
+
+    @GetMapping("/permitPlans")
+    public BaseResult permitPlans(@RequestParam String showName,@RequestParam String venueName){
+        return new BaseResult<>(0,adminService.permitPlans(showName,venueName));
+    }
+
+    @GetMapping("/permitVenueModify")
+    public BaseResult permitVenueModify(@RequestParam String venueName,@RequestParam String title){
+        return new BaseResult<>(0,adminService.permitVenueModify(venueName,title));
+    }
+
+    @GetMapping("/permitRegister")
+    public BaseResult permitRegister(@RequestParam String venueName,@RequestParam String username){
+        return new BaseResult<>(0,adminService.permitRegister(venueName,username));
+    }
+
+    @GetMapping("/backPlans")
+    public BaseResult backPlans(@RequestParam String showName,@RequestParam String venueName){
+        return new BaseResult<>(0,adminService.backPlans(showName,venueName));
+    }
+
+    @GetMapping("/backVenueModify")
+    public BaseResult backVenueModify(@RequestParam String venueName,@RequestParam String title){
+        return new BaseResult<>(0,adminService.backVenueModify(venueName,title));
+    }
+
+    @GetMapping("/backRegister")
+    public BaseResult backRegister(@RequestParam String venueName,@RequestParam String username){
+        return new BaseResult<>(0,adminService.backRegister(venueName,username));
+    }
+
 }

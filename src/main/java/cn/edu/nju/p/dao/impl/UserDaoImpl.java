@@ -1,8 +1,10 @@
 package cn.edu.nju.p.dao.impl;
 
 import cn.edu.nju.p.dao.UserDao;
+import cn.edu.nju.p.dao.daoUtils.UserLevel;
 import cn.edu.nju.p.po.UserPO;
 import cn.edu.nju.p.po.VenueRegisterAccountPO;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,7 +40,9 @@ public class UserDaoImpl implements UserDao {
             userPO1.setDescription(resultSet.getString("description"));
             return userPO1;
         });
+
         return userPO;
+
     }
 
     @Override
@@ -56,12 +60,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int registerNewVenue(VenueRegisterAccountPO po) {
-        String sql = "Insert into venue_account(venueName,address,manager,phoneNumber,seatA,seatB,seatC,total,message1,message2,message3,description,username,state) values " +
+        String sql = "Insert into venue_account(venueName,address,manager,phoneNumber,seatA,seatB,seatC,total,message1,message2,message3,description,username,state,venueId) values " +
                 "(" + '"' + po.getVenueName() + '"' + "," + '"' + po.getAddress() + '"' + "," + '"' + po.getManager() + '"' +
                 "," + '"' + po.getPhoneNumber() + '"' + "," + '"' + po.getSeatA()
                 + '"' + "," + '"' + po.getSeatB() + '"' + "," + '"' + po.getSeatC() + '"' + "," + '"' +
                 po.getTotal() + '"' + "," + '"' + po.getMessage1()
-                + '"' + "," + '"'+po.getMessage2()+'"'+','+'"'+po.getMessage3()+'"'+ ','+'"'+po.getDescription()+'"'+','+'"'+po.getUsername()+'"'+','+'"'+po.getState()+'"'+
+                + '"' + "," + '"'+po.getMessage2()+'"'+','+'"'+po.getMessage3()+'"'+ ','+'"'+po.getDescription()+'"'+','+'"'+po.getUsername()+'"'+','+'"'+po.getState()+'"'+','+'"'+po.getVenueId()+'"'+
                 ")";
 
         System.out.println(sql);
@@ -88,5 +92,28 @@ public class UserDaoImpl implements UserDao {
             userPO.setDescription(resultSet.getString("description"));
             return userPO;
         };
+    }
+
+    @Override
+    public int adjustLevel(String username){
+        UserPO userPO=getUserInfo(username);
+        double consump=Double.valueOf(userPO.getConsumption());
+        String level = "";
+
+        if(consump<100){
+            level= String.valueOf(UserLevel.vip1);
+        }else if(consump<1000){
+            level=String.valueOf(UserLevel.vip2);
+        }else if(consump<5000){
+            level=String.valueOf(UserLevel.vip3);
+        }else if(consump<10000){
+            level=String.valueOf(UserLevel.vip4);
+        }else{
+            level=String.valueOf(UserLevel.vip5);
+        }
+        String sql1="update user_info set level="+'"'+level+'"'+"where username="+'"'+username+'"';
+        int success=jdbcTemplate.update(sql1);
+
+        return success;
     }
 }

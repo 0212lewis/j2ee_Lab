@@ -93,4 +93,77 @@ public class AdminServiceImpl implements AdminService{
     public int getAuditRegister() {
         return adminDao.getAuditRegister();
     }
+
+
+    @Override
+    public String permitVenueModify(String venueName, String title) {
+        int count=adminDao.permitVenueModify(venueName,title);
+        String res="";
+        if(count<1){
+            res="批准失败！";
+        }else{
+            res="批准成功！";
+        }
+        return res;
+    }
+
+    @Override
+    public String permitRegister(String venueName, String username) {
+        int[] count=adminDao.permitRegister(venueName,username);
+        String res="";
+        if(count[0]<1||count[1]<1){
+            res="批准失败！";
+        }else{
+            res="批准成功！";
+        }
+        return res;
+    }
+
+    @Override
+    public String permitPlans(String showName, String venueName) {
+        int count=adminDao.permitPlans(showName,venueName);
+        String res="";
+        if(count<1){
+            res="批准失败！";
+        }else{
+            res="批准成功！";
+        }
+        return res;
+    }
+
+    @Override
+    public String backVenueModify(String venueName, String title) {
+        int count=adminDao.backVenueModify(venueName,title);
+        String res="";
+        if(count<1){
+            res="批准失败！";
+        }else{
+            res="批准成功！";
+        }
+        return res;
+    }
+
+    @Override
+    public String backRegister(String venueName, String username) {
+        int count=adminDao.backRegister(venueName,username);
+        String res="";
+        if(count<1){
+            res="批准失败！";
+        }else{
+            res="批准成功！";
+        }
+        return res;
+    }
+
+    @Override
+    public String backPlans(String showName, String venueName) {
+        int count=adminDao.backPlans(showName,venueName);
+        String res="";
+        if(count<1){
+            res="批准失败！";
+        }else{
+            res="批准成功！";
+        }
+        return res;
+    }
 }

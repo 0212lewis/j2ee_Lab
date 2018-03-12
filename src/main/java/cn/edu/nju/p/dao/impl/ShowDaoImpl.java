@@ -27,28 +27,28 @@ public class ShowDaoImpl implements ShowDao{
 
     @Override
     public List<ShowPlanPO> getPlays() {
-        String sql = "select * from show_plan where type="+'"'+"戏剧达人"+'"';
+        String sql = "select * from show_plan where type="+'"'+"戏剧达人"+'"'+"and state="+'"'+"批准"+'"';
         List<ShowPlanPO> showPlanPOS = jdbcTemplate.query(sql,getShowMapper());
         return showPlanPOS;
     }
 
     @Override
     public List<ShowPlanPO> getConcerts() {
-        String sql = "select * from show_plan where type="+'"'+"演唱会"+'"';
+        String sql = "select * from show_plan where type="+'"'+"演唱会"+'"'+"and state="+'"'+"批准"+'"';
         List<ShowPlanPO> showPlanPOS = jdbcTemplate.query(sql,getShowMapper());
         return showPlanPOS;
     }
 
     @Override
     public List<ShowPlanPO> getSports() {
-        String sql = "select * from show_plan where type="+'"'+"体育赛事"+'"';
+        String sql = "select * from show_plan where type="+'"'+"体育赛事"+'"'+"and state="+'"'+"批准"+'"';
         List<ShowPlanPO> showPlanPOS = jdbcTemplate.query(sql,getShowMapper());
         return showPlanPOS;
     }
 
     @Override
     public List<ShowPlanPO> getClassic() {
-        String sql = "select * from show_plan where type="+'"'+"古典/舞蹈"+'"';
+        String sql = "select * from show_plan where type="+'"'+"古典/舞蹈"+'"'+"and state="+'"'+"批准"+'"';
         List<ShowPlanPO> showPlanPOS = jdbcTemplate.query(sql,getShowMapper());
         return showPlanPOS;
     }
@@ -59,6 +59,7 @@ public class ShowDaoImpl implements ShowDao{
 
         return (resultSet,i)->{
             ShowPlanPO showPlanPO = new ShowPlanPO();
+            showPlanPO.setShowId(resultSet.getString("showId"));
             showPlanPO.setShowName(resultSet.getString("showName"));
             showPlanPO.setShowTime(resultSet.getString("showTime"));
             showPlanPO.setType(resultSet.getString("type"));
