@@ -71,4 +71,30 @@ public class UserServiceImpl implements UserService{
         }
         return res;
     }
+
+    @Override
+    public String stopVip(String username) {
+        String result = "";
+        int[] count = userDao.StopVip(username);
+        if(count[0]<1){
+            result="停止会员特权失败!";
+        }
+        if(count[1]<1){
+            result="清零consumption失败!";
+        }
+        if(count[0]>0&&count[1]>0){
+            result="您已经停止了会员特权，该操作不可恢复!";
+        }
+        return result;
+    }
+
+    @Override
+    public List<String> getCreateTime(String username) {
+        return userDao.getCreateTime(username);
+    }
+
+    @Override
+    public List<String> getTotal(String username) {
+        return userDao.getTotal(username);
+    }
 }

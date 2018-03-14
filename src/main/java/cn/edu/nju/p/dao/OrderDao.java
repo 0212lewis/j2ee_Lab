@@ -26,4 +26,13 @@ public interface OrderDao {
     String getLevel(String username);
 
     int[] buyTickets(OrderPO orderPO);
+
+    int updateSeats(String showName,String seatType,String seats);
+
+    String getBalance(String username);
+
+    String getIntegral(String username);
+
+    String getCurrentSeats(String seatType,String showName);
+
  }

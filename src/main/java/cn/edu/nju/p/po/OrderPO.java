@@ -6,6 +6,7 @@ package cn.edu.nju.p.po;
 public class OrderPO {
 
     private String username;
+    private String level;
     private String orderId;
     private String createTime;
     private String showName;
@@ -20,8 +21,9 @@ public class OrderPO {
     private String venueName;
 
 
-    public OrderPO(String username, String orderId, String createTime, String showTime, String seatType, String seat, String price, String total, String code, String number,String state,String venueName) {
+    public OrderPO(String username, String level,String orderId, String createTime, String showTime, String seatType, String seat, String price, String total, String code, String number,String state,String venueName) {
         this.username = username;
+        this.level = level;
         this.orderId = orderId;
         this.createTime = createTime;
         this.showTime = showTime;
@@ -38,6 +40,14 @@ public class OrderPO {
 
     public OrderPO(){
 
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public String getVenueName() {

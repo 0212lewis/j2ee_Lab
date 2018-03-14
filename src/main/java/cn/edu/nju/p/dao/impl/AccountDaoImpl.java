@@ -6,6 +6,7 @@ import cn.edu.nju.p.po.VenuePO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -79,14 +80,14 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public int venueRegister(String username, VenuePO venuePO) {
-        return 0;
-    }
-
-    @Override
     public List<AccountPO> getAllAccount() {
         return null;
     }
 
-
+    @Override
+    public String getAuthority(String username) {
+        String sql = "select authority from account where username=?";
+        String authority = jdbcTemplate.queryForObject(sql,new Object[]{username},String.class);
+        return authority;
+    }
 }

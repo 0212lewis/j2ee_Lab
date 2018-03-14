@@ -20,13 +20,14 @@ public class VenuePO {
     private String message1;
     private String message2;
     private String message3;
+    private String actualIncome;
 
 
     public VenuePO(){
 
     }
 
-    public VenuePO(String venueId,String venueName, String address, String totalSeats, String seatType, String seatA, String seatB, String seatC, String manager, String phoneNumber, String available,String description,String message1,String message2,String message3) {
+    public VenuePO(String venueId,String venueName, String address, String totalSeats, String seatType, String seatA, String seatB, String seatC, String manager, String phoneNumber, String available,String description,String message1,String message2,String message3,String actualIncome) {
        this.venueId = venueId;
         this.venueName = venueName;
         this.address = address;
@@ -42,6 +43,16 @@ public class VenuePO {
         this.message1=message1;
         this.message2=message2;
         this.message3=message3;
+        this.actualIncome=actualIncome;
+
+    }
+
+    public String getActualIncome() {
+        return actualIncome;
+    }
+
+    public void setActualIncome(String actualIncome) {
+        this.actualIncome = actualIncome;
     }
 
     public String getVenueId() {

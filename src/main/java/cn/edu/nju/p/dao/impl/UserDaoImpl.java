@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by pc on 2018/3/5.
  */
@@ -100,13 +102,15 @@ public class UserDaoImpl implements UserDao {
         double consump=Double.valueOf(userPO.getConsumption());
         String level = "";
 
-        if(consump<100){
-            level= String.valueOf(UserLevel.vip1);
+        if(consump<500){
+            level= String.valueOf(UserLevel.vip0);
         }else if(consump<1000){
-            level=String.valueOf(UserLevel.vip2);
+            level= String.valueOf(UserLevel.vip1);
         }else if(consump<5000){
-            level=String.valueOf(UserLevel.vip3);
+            level=String.valueOf(UserLevel.vip2);
         }else if(consump<10000){
+            level=String.valueOf(UserLevel.vip3);
+        }else if(consump<50000){
             level=String.valueOf(UserLevel.vip4);
         }else{
             level=String.valueOf(UserLevel.vip5);
@@ -115,5 +119,28 @@ public class UserDaoImpl implements UserDao {
         int success=jdbcTemplate.update(sql1);
 
         return success;
+    }
+
+
+    @Override
+    public int[] StopVip(String username) {
+        String sql = "update user_info set level="+'"'+"vip0"+'"'+"where username="+'"'+username+'"';
+        String sql1 = "update user_info set consumption="+'"'+"0"+'"'+"where username="+'"'+username+'"';
+        int[] success=jdbcTemplate.batchUpdate(sql,sql1);
+        return success;
+    }
+
+    @Override
+    public List<String> getCreateTime(String username) {
+        String sql = "select distinct createTime from orders";
+        List<String> list = jdbcTemplate.queryForList(sql,String.class);
+        return list;
+    }
+
+    @Override
+    public List<String> getTotal(String username) {
+        String sql = "select sum(total) from orders group by createTime";
+        List<String> list = jdbcTemplate.queryForList(sql,String.class);
+        return list;
     }
 }

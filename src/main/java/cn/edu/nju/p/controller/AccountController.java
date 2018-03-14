@@ -63,6 +63,8 @@ public class AccountController {
     }
 
 
-
-
+    @GetMapping("/getAuthority")
+    public BaseResult getAuthority(@RequestParam String username){
+        return new BaseResult<>(0,accountService.getAuthority(username));
+    }
 }

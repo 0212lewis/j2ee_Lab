@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by pc on 2018/3/5.
  */
@@ -39,5 +42,22 @@ public class UserController {
         return new BaseResult<>(0,userService.adjustLevel(username));
     }
 
+    @GetMapping("/stopVip")
+    public BaseResult stopVip(@RequestParam String username){
+        return new BaseResult<>(0,userService.stopVip(username));
+    }
 
+    @GetMapping("/getConsumptionByTime")
+    public BaseResult getCreateTime(@RequestParam String username){
+
+        List<List<String>> lists = new ArrayList<>();
+        lists.add(userService.getCreateTime(username));
+        lists.add(userService.getTotal(username));
+        return new BaseResult<>(0,lists);
+    }
+
+    @GetMapping("/getTotal")
+    public BaseResult getTotal(@RequestParam String username){
+        return new BaseResult<>(0,userService.getTotal(username));
+    }
 }

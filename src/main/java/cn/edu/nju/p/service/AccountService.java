@@ -13,4 +13,5 @@ public interface AccountService {
 
     int venueLogin(String venueId,String venueName);
 
+    String getAuthority(String username);
 }

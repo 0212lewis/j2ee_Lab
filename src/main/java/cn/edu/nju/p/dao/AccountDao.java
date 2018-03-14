@@ -18,9 +18,7 @@ public interface AccountDao {
 
     int venueLogin(String venueId,String venueName);
 
-    int venueRegister(String username, VenuePO venuePO);
-
-
+    String getAuthority(String username);
 
 //    boolean register(String username,String email);
 

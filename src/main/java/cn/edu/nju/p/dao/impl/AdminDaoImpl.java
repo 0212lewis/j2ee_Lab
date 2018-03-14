@@ -1,6 +1,7 @@
 package cn.edu.nju.p.dao.impl;
 
 import cn.edu.nju.p.dao.AdminDao;
+import cn.edu.nju.p.po.IncomePO;
 import cn.edu.nju.p.po.ShowPlanPO;
 import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenueRegisterAccountPO;
@@ -209,16 +210,16 @@ public class AdminDaoImpl implements AdminDao{
 
         String venueId=getVenueId();
 
-        String sql1 = "insert into venues(venueName,address,total,seatType,seatA,seatB,seatC,manager,phoneNumber,available,message1,message2,message3,description,venueId) values "+'('
+        String sql1 = "insert into venues(venueName,address,total,seatType,seatA,seatB,seatC,manager,phoneNumber,available,message1,message2,message3,description,venueId,actualIncome) values "+'('
                 +'"'+ venueRegisterAccountPO.getVenueName()+'"'+','+'"'+venueRegisterAccountPO.getAddress()+'"'+','+'"'+venueRegisterAccountPO.getTotal()+'"'
                 +','+'"'+"A/B/C"+'"'+','+'"'+venueRegisterAccountPO.getSeatA()+'"'+','+'"'+venueRegisterAccountPO.getSeatB()+'"'+','+'"'+venueRegisterAccountPO.getSeatC()+'"'
                 +','+'"'+venueRegisterAccountPO.getManager()+'"'+','+'"'+venueRegisterAccountPO.getPhoneNumber()+'"'+','+'"'+"1"+'"'
                 +','+'"'+venueRegisterAccountPO.getMessage1()+'"'+','+'"'+venueRegisterAccountPO.getMessage2()+'"'+','+'"'+venueRegisterAccountPO.getMessage3()+'"'+','+'"'+venueRegisterAccountPO.getDescription()+'"'
-                +','+'"'+venueId+'"'
+                +','+'"'+venueId+'"'+','+'"'+"0"+'"'
                 +')';
 
 
-        String insertVenueId="update venue_account set venueId="+'"'+venueId+'"';
+        String insertVenueId="update venue_account set venueId="+'"'+venueId+'"'+"where venueName="+'"'+venueName+'"';
         int q=jdbcTemplate.update(insertVenueId);
 
         int[] success=jdbcTemplate.batchUpdate(sql,sql1);

@@ -27,5 +27,14 @@ public interface OrderService {
 
     String buyTickets(OrderPO orderPO);
 
+    String updateSeats(String showName,String seatType,String seats);
+
+
+    String getBalance(String username);
+
+    String getIntegral(String username);
+
+    String getCurrentSeats(String seatType,String showName);
+
 
 }

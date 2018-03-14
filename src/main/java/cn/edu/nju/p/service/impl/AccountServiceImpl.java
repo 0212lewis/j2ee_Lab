@@ -86,6 +86,11 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.venueLogin(venueId,venueName);
     }
 
+    @Override
+    public String getAuthority(String username) {
+        return accountDao.getAuthority(username);
+    }
+
     /**
     生成随机四位验证码
      */

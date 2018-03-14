@@ -2,6 +2,7 @@ package cn.edu.nju.p.controller;
 
 import cn.edu.nju.p.dto.BaseResult;
 import cn.edu.nju.p.service.AdminService;
+import cn.edu.nju.p.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private StatisticsService statisticsService;
 
     @PostMapping("/getAllCompletedPlans")
     public BaseResult getAllCompletedPlans(){
@@ -117,5 +121,17 @@ public class AdminController {
     public BaseResult backRegister(@RequestParam String venueName,@RequestParam String username){
         return new BaseResult<>(0,adminService.backRegister(venueName,username));
     }
+
+    @PostMapping("/getVenueIncome")
+    public BaseResult getVenueIncome(){
+        return new BaseResult<>(0,statisticsService.getVenueIncome());
+    }
+
+    @GetMapping("/payMoney")
+    public BaseResult payMoney(@RequestParam String venueName,@RequestParam String money){
+        return new BaseResult<>(0,statisticsService.payMoney(venueName,money));
+    }
+
+
 
 }

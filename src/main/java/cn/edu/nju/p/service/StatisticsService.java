@@ -1,4 +1,4 @@
-package cn.edu.nju.p.dao;
+package cn.edu.nju.p.service;
 
 import cn.edu.nju.p.po.IncomePO;
 
@@ -7,8 +7,7 @@ import java.util.List;
 /**
  * Created by pc on 2018/3/12.
  */
-public interface StatisticsDao {
-
+public interface StatisticsService {
     /**
      * 根据用户名得到该用户的所有订单数
      */
@@ -39,14 +38,14 @@ public interface StatisticsDao {
     int getAllVenueNumber();
 
     /**
-     * 得到该场馆的所有预定数
+     * 根据场馆名得到该场馆的所有预定数
      */
 
     int getAllVenueReserve();
 
 
     /**
-     * 得到该场馆的所有退订数
+     * 根据场馆名得到该场馆的所有退订数
      */
 
     int getAllVenueBack();
@@ -85,15 +84,14 @@ public interface StatisticsDao {
     List<Double> getUserConsumption();
 
     /**
-     *得到所有场馆的收入情况
+     * 得到场馆的收入情况
      */
+
     List<IncomePO> getVenueIncome();
 
     /**
-     * 结算给场馆
+     *
      */
-    int payMoney(String venueName,String money);
-
-
+    String payMoney(String venueName,String money);
 
 }

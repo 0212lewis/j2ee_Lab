@@ -5,6 +5,6 @@ package cn.edu.nju.p.dao.daoUtils;
  */
 public enum UserLevel {
 
-    vip1,vip2,vip3,vip4,vip5
+    vip0,vip1,vip2,vip3,vip4,vip5
 
 }

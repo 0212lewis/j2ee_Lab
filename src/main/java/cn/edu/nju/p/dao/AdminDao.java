@@ -1,5 +1,6 @@
 package cn.edu.nju.p.dao;
 
+import cn.edu.nju.p.po.IncomePO;
 import cn.edu.nju.p.po.ShowPlanPO;
 import cn.edu.nju.p.po.VenueModifyPO;
 import cn.edu.nju.p.po.VenueRegisterAccountPO;

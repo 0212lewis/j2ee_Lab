@@ -21,6 +21,11 @@ public interface UserService {
 
     String adjustLevel(String username);
 
+    String stopVip(String username);
+
+    List<String> getCreateTime(String username);
+
+    List<String> getTotal(String username);
 
 
 }

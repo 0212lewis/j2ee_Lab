@@ -136,9 +136,9 @@ public class AdminServiceImpl implements AdminService{
         int count=adminDao.backVenueModify(venueName,title);
         String res="";
         if(count<1){
-            res="批准失败！";
+            res="驳回失败！";
         }else{
-            res="批准成功！";
+            res="驳回成功！";
         }
         return res;
     }
@@ -148,9 +148,9 @@ public class AdminServiceImpl implements AdminService{
         int count=adminDao.backRegister(venueName,username);
         String res="";
         if(count<1){
-            res="批准失败！";
+            res="驳回失败！";
         }else{
-            res="批准成功！";
+            res="驳回成功！";
         }
         return res;
     }
@@ -160,9 +160,9 @@ public class AdminServiceImpl implements AdminService{
         int count=adminDao.backPlans(showName,venueName);
         String res="";
         if(count<1){
-            res="批准失败！";
+            res="驳回失败！";
         }else{
-            res="批准成功！";
+            res="驳回成功！";
         }
         return res;
     }

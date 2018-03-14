@@ -69,6 +69,11 @@ public class OrderServiceImpl implements OrderService{
 
         String level=orderDao.getLevel(username);
         switch (level){
+            case "vip0":{
+                discount=1;
+                break;
+            }
+
             case "vip1":{
                 discount = 0.95;
                 break;
@@ -116,8 +121,14 @@ public class OrderServiceImpl implements OrderService{
         if(res[2]<1){
             result="插入到财务表失败!";
         }
+        if(res[3]<1){
+            result = "更新用户余额失败！";
+        }
+        if(res[4]<1){
+            result = "更新用户积分失败！";
+        }
 
-        if(res[0]>0&&res[1]>0&&res[2]>0){
+        if(res[0]>0&&res[1]>0&&res[2]>0&&res[3]>0&&res[4]>0){
             result="购票成功！";
         }else{
             result="数据异常！";
@@ -161,5 +172,33 @@ public class OrderServiceImpl implements OrderService{
 
         }
         return showId;
+    }
+
+    @Override
+    public String updateSeats(String showName, String seatType, String seats) {
+        String res = "";
+
+        int count = orderDao.updateSeats(showName,seatType,seats);
+        if(count<1){
+            res="更新座位失败！";
+        }else{
+            res="更新座位成功！";
+        }
+        return res;
+    }
+
+    @Override
+    public String getBalance(String username) {
+        return orderDao.getBalance(username);
+    }
+
+    @Override
+    public String getIntegral(String username) {
+        return orderDao.getIntegral(username);
+    }
+
+    @Override
+    public String getCurrentSeats(String seatType, String showName) {
+        return orderDao.getCurrentSeats(seatType,showName);
     }
 }

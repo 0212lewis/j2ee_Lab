@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
@@ -110,13 +111,14 @@ public class OrderDaoImpl implements OrderDao{
     @Override
     public int[] buyTickets(OrderPO orderPO) {
 
-        int[] result=new int[3];
+        int[] result=new int[5];
 
         /*
         插入orders表数据，每次付款完成插入一条对应的订单记录
          */
-        String sql = "insert into orders(username,orderId,createTime,showTime,seatType,seat,code,state,price,total,number,showName,venueName) values"
-                +'('+'"'+orderPO.getUsername()+'"'+','+'"'+ orderPO.getOrderId()+'"'+','+'"'+ orderPO.getCreateTime()+'"'+','+'"'+ orderPO.getShowTime()+'"'
+
+        String sql = "insert into orders(username,level,orderId,createTime,showTime,seatType,seat,code,state,price,total,number,showName,venueName) values"
+                +'('+'"'+orderPO.getUsername()+'"'+','+'"'+getLevel(orderPO.getUsername())+'"'+','+'"'+ orderPO.getOrderId()+'"'+','+'"'+ orderPO.getCreateTime()+'"'+','+'"'+ orderPO.getShowTime()+'"'
                 +','+'"'+orderPO.getSeatType()+'"'+','+'"'+orderPO.getSeat()+'"'+','+'"'+orderPO.getCode()+'"'+','+'"'+orderPO.getState()+'"'+','+'"'+orderPO.getPrice()+'"'
                 +','+'"'+orderPO.getTotal()+'"'+','+'"'+orderPO.getNumber()+'"'+','+'"'+orderPO.getShowName()+'"'+','+'"'+orderPO.getVenueName()+'"'+')';
 //        System.out.print(sql);
@@ -136,7 +138,32 @@ public class OrderDaoImpl implements OrderDao{
         System.out.print(updateConsump);
         result[1] = jdbcTemplate.update(updateConsump);
 
+         /*
+        更新余额
+         */
+         String temp1 = "select balance from user_info where username=?";
 
+         double balance = Double.valueOf(jdbcTemplate.queryForObject(temp1,new Object[]{orderPO.getUsername()},Double.class));
+
+         balance = balance-Double.valueOf(orderPO.getTotal());
+
+         String updateBalance="update user_info set balance="+'"'+String.valueOf(balance)+'"'+"where username="+'"'+orderPO.getUsername()+'"';
+
+         result[3] = jdbcTemplate.update(updateBalance);
+
+         /*
+         更新积分
+          */
+
+        String temp2="select integral from user_info where username=?";
+
+        double integral = Double.valueOf(jdbcTemplate.queryForObject(temp,new Object[] { orderPO.getUsername() }, String.class));
+
+        integral=integral+Double.valueOf(orderPO.getTotal());
+
+        String updateIntegral="update user_info set integral="+'"'+String.valueOf(integral)+'"'+"where username="+'"'+orderPO.getUsername()+'"';
+
+        result[4] = jdbcTemplate.update(updateIntegral);
         /*
         插入一条新的记录到财务表
          */
@@ -148,13 +175,129 @@ public class OrderDaoImpl implements OrderDao{
         return result;
     }
 
+    @Override
+    public int updateSeats(String showName,String seatType, String seats) {
+        String type="";
+        String currentSeats="";
 
 
+        if(seatType.equals("A")){
+            type="seatA";
+            currentSeats=getSeatA(showName);
+
+        }else if(seatType.equals("B")){
+            type = "seatB";
+            currentSeats=getSeatB(showName);
+        }else if(seatType.equals("C")){
+            type = "seatC";
+            currentSeats=getSeatC(showName);
+        }
+
+        System.out.print("seatType == "+type);
+
+        System.out.print("first"+currentSeats);
+
+        currentSeats=getFinalSeats(currentSeats,seats);
+
+        String sql = "update show_plan set "+ type + "="+'"'+currentSeats+'"'+"where showName="+'"'+showName+'"';
+        System.out.print(sql);
+        int success = jdbcTemplate.update(sql);
+        return success;
+    }
+
+    @Override
+    public String getBalance(String username) {
+        String temp1 = "select balance from user_info where username=?";
+
+        double balance = Double.valueOf(jdbcTemplate.queryForObject(temp1,new Object[]{username},Double.class));
+
+        return String.valueOf(balance);
+    }
+
+    @Override
+    public String getIntegral(String username) {
+        String temp1 = "select integral from user_info where username=?";
+
+        double integral = Double.valueOf(jdbcTemplate.queryForObject(temp1,new Object[]{username},Double.class));
+
+        return String.valueOf(integral);
+    }
+
+
+    @Override
+    public String getCurrentSeats(String seatType, String showName) {
+        String currentSeats = "";
+        if(seatType.equals("A")){
+            currentSeats = getSeatA(showName);
+        }else if(seatType.equals("B")){
+            currentSeats = getSeatB(showName);
+        }else{
+            currentSeats = getSeatC(showName);
+        }
+        return currentSeats;
+    }
+
+    private String getSeatA(String showName){
+        String sql = "select seatA from show_plan where showName=?";
+        String seatA = jdbcTemplate.queryForObject(sql,new Object[]{showName},String.class);
+        return seatA;
+    }
+
+    private String getSeatB(String showName){
+        String sql = "select seatB from show_plan where showName=?";
+        String seatB = jdbcTemplate.queryForObject(sql,new Object[]{showName},String.class);
+        return seatB;
+    }
+    private String getSeatC(String showName){
+        String sql = "select seatC from show_plan where showName=?";
+        String seatC = jdbcTemplate.queryForObject(sql,new Object[]{showName},String.class);
+        return seatC;
+    }
+
+    private String getFinalSeats(String currentSeats,String seats){
+        String result = "";
+
+        String[] currentString = currentSeats.split(";");
+
+        String[] seatsString = seats.split(";");
+
+
+        List<String> currentlist = new ArrayList<String>();
+
+        for (int i = 0; i < currentString.length; i++) {
+            String current = currentString[i];
+            boolean hasEquals = false;
+            for (int j = 0; j < seatsString.length; j++) {
+                String seat = seatsString[j];
+                if (current.equals(seat)) {
+                    hasEquals = true;
+                    break;
+                }
+            }
+            if (!hasEquals) {
+                currentlist.add(current);
+            }
+        }
+
+        System.out.println(currentlist+"after");
+        return transformToString(currentlist);
+
+    }
+
+    private String transformToString(List<String> list){
+        String result = "";
+        for(int i=0;i<list.size();i++){
+            result = result+list.get(i)+";";
+        }
+        result=result.substring(0,result.length()-1);
+        return result;
+    }
 
     private RowMapper<OrderPO> getOrderMapper(){
         return (resultSet, i) -> {
             cn.edu.nju.p.po.OrderPO orderPO = new cn.edu.nju.p.po.OrderPO();
             orderPO.setUsername(resultSet.getString("username"));
+            orderPO.setLevel(resultSet.getString("level"));
             orderPO.setOrderId(resultSet.getString("orderId"));
             orderPO.setCreateTime(resultSet.getString("createTime"));
             orderPO.setShowName(resultSet.getString("showName"));
